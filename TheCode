@@ -1,0 +1,17 @@
+from urllib.request import urlopen as uReq
+from bs4 import BeautifulSoup as soup
+my_url = "https://www.synbiosys.alterra.nl/evc/vegtype.aspx?selectnode=false&vegtype=11AA01A"
+# Opening a connection with page and grabbing the contents to a container
+uPage = uReq(my_url)
+# To read the contents of this page and offload it to a variable
+page_html = uPage.read()
+# To close the connection with this page
+uPage.close()
+# To parse the HTML
+page_soup = soup(page_html, "html.parser")
+# To see the header of the page
+page_soup.h1
+# After inspecting the page we make a container to have the items we're looking for
+container = page_soup.findAll("li")
+for item in container:
+    print("Species Name is: ", item.text)
